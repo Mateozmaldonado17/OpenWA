@@ -7,6 +7,8 @@ import { ShutdownService } from './common/services/shutdown.service';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
+// ADDED: Import express body parsers to inject dynamic limits
+import { json, urlencoded } from 'express';
 
 // Configuration loading order (later sources do NOT override earlier ones):
 //   1. Process env (Docker, shell, systemd) — highest priority
@@ -66,6 +68,11 @@ STORAGE_PATH=./data/media
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // ADDED: Set dynamic payload limit from docker-compose.yml or fallback to 50mb
+  const payloadLimit = process.env.BODY_PARSER_LIMIT || '50mb';
+  app.use(json({ limit: payloadLimit }));
+  app.use(urlencoded({ limit: payloadLimit, extended: true }));
 
   // Enable shutdown hooks for graceful shutdown
   app.enableShutdownHooks();
