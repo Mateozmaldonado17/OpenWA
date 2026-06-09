@@ -98,7 +98,7 @@ export class EngineFactory implements OnModuleInit {
       sessionDataPath: this.configService.get<string>('engine.sessionDataPath') ?? './data/sessions',
       puppeteer: {
         headless: this.configService.get<boolean>('engine.puppeteer.headless') ?? true,
-        args: this.configService.get<string[]>('engine.puppeteer.args') ?? ['--no-sandbox', '--disable-setuid-sandbox'],
+        args: this.configService.get<string[]>('engine.puppeteer.args') ?? ['--no-sandbox', '--disable-setuid-sandbox', '--disable-features=Crashpad', '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'],
       },
       proxy: options.proxyUrl
         ? {
