@@ -70,6 +70,7 @@ export class WhatsAppWebJsAdapter extends EventEmitter implements IWhatsAppEngin
 
     try {
       // Build puppeteer args, including proxy, Crashpad disable and commercial User-Agent
+      // Build puppeteer args, including proxy, Crashpad disable and commercial User-Agent
       const puppeteerArgs = this.config.puppeteer?.args || [
         '--no-sandbox',
         '--disable-setuid-sandbox',
@@ -80,9 +81,9 @@ export class WhatsAppWebJsAdapter extends EventEmitter implements IWhatsAppEngin
         '--disable-gpu',
         '--disable-features=Crashpad',
         '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-        '--single-process',
-        '--font-render-hinting=none',
-        '--disable-extensions'
+        '--disable-software-rasterizer',
+        '--disable-extensions',
+        '--mute-audio'
       ];
 
       // Add proxy configuration if provided
